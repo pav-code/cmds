@@ -1,0 +1,84 @@
+
+INPUTRC: Retrieve previous commands from the history
+   1 gedit /etc/inputrc
+   2 # alternate mappings for "page up" and "page down" to search the history
+     # "\e[5~": history-search-backward
+     # "\e[6~": history-search-forward
+   3 uncomment
+   4 try "command + page up"
+ 
+LIST DRIVES all hard drives + partitions
+   1 lsblk
+
+MOUNT a drive
+   1 mkdir /media/<myDir>
+   2 mount /dev/sda4 /media/myDir
+   
+UNMOUNT a drive
+   umount <drive location>
+ 
+SSH copy
+   1 scp pav@192.168.0.108:/media/drive2/Users/pg-elevated/Documents/McMaster/* .
+ 
+DU Check directory size
+   1 du -sm *
+   2 du -sm * | sort -nr | head -15  (top 15 items in size)
+
+FIND Regex
+   # finds regex of the certain type, 36 small letter alphanumeric characters with slash or dash
+   find . -regextype sed -regex ".*/[a-f0-9\-]\{36\}\.jpg"
+   
+   # finds will execute grep and will substitute {} with the filename(s) found. The difference between ; and + is that with ; 
+   # a single grep command for each file is executed whereas with + as many files as possible are given as parameters to grep 
+   # at once.
+   find . -exec grep chrome {} \;
+   find . -exec grep chrome {} + 
+   
+   # finds the files ending in "unistd.h" and runs a grep on them for the string "NR_SYSCALLS" and then prints only their file names
+   # NOTE: successive execs only run on previously successful exec!
+   find . -regextype sed -regex ".*unistd.h" -exec grep NR_SYSCALLS {} \; -exec echo {} \;
+   
+   # running all execs regardless of previous exec's outcome
+   find . -name "*.txt" \( -exec echo {} \; -o -exec true \; \) -exec grep banana {} \;
+
+   # use the regex for "unistd.h" and then execute a bash script for grep "NR_SYSCALLS" and print all the files   
+   find . -regextype sed -regex ".*unistd.h" -exec sh -c 'grep NR_SYSCALLS "{}"; echo "{}"' \;
+   #find . -regextype sed -regex ".*unistd.h" -exec sh -c 'if [grep NR_SYSCALLS "{}"] then echo "{}"; fi' \;
+
+LOCAL IP ip
+   ip a
+
+SCAN IPs
+   nmap -sP 192.168.0.*
+   
+INSTALL .deb package
+   sudo dpkg -i DEB_PACKAGE
+
+UNINSTALL
+   sudo apt remove APPLICATION
+   sudo apt autoremove  (gets rid of dependencies)
+   
+WRITE-PROTECTION: Usb is write-protected and cannot be mounted as writeable
+   df <file> : identifies the file's mounting point
+   sudo blockdev --setrw /dev/sXX#
+   sudo mount -o remount,rw /dev/sXX# /<location of your choice>
+   sudo hdparm -r0 /dev/sXX#
+   sudo dd if=/dev/zero of=/dev/sdh1 bs=1k count=2048 : write all 0s to the block
+   sudo mkfs.vfat /dev/sXX# : Format the drive to fat?
+   dmesg | grep sda : Checks for hardware faults
+   
+SPEED TEST: A terminal speed test script
+   curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -
+   
+LIST OF INSTALLED KERNELS
+   dpkg --list | grep linux-image
+   
+OR FOR COMPLETE LIST
+	dpkg --list | egrep -i --color 'linux-image|linux-headers|linux-modules' | awk '{ print $2 }'
+	
+REMOVE KERNEL SPECIFIC VERSION(S) (separate files include usually 3 or 4 separate files - the image, headers, modules, extra-modules)
+	sudo apt purge <older_linux_version_number>	remove kernel specified version (separate files include usually 3 or 4 		separate files - the image, headers, modules, extra-modules)
+	
+
+	
+
