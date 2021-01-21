@@ -1,0 +1,9 @@
+git status : check status of repo
+git log : check log of recent commits
+git restore --staged <file> : set file into staging
+git checkout HEAD -- <file> : revert file to repo version
+git reset --hard HEAD : reset all files to repo vesion (use with CAUTION)
+git reset --soft HEAD : unstage commits to repo vesion
+git fetch origin : grab changes that happened on the remote server
+git rebase origin/master : put the code below your new changes
+
