@@ -1,0 +1,88 @@
+FIREWALL: 
+   ufw enable
+   ufw allow 22 : opens port 22
+   ufw status : see open ports
+   ufw app list : see available applications that can go through firewall
+   ufw allow 'Apache Full' : opens port 80 (HTTP) and 443 (HTTPS)
+   
+LISTENING Ports:
+   sudo netstat -tulpn
+
+IP Local
+   ifconfig : local ip
+   
+SSH Config:
+  DISABLE Root via SSH:
+    1. sudo gedit /etc/ssh/sshd_config
+    2. PermitRootLogin yes -> no
+  ALLOW Users:
+    1. sudo gedit /etc/ssh/sshd_config
+    2. AllowUsers <user> <user2> ...
+  RESTART SSH:
+    sudo systemctl restart ssh
+  SSH Key Login:
+    1. ssh-keygen
+    2. set password
+    3. ssh-copy-id -i ~./.ssh/id_<name>.pub <user>@<server IP> : ex. id_key.pub pav@192.168.0.155
+  ADD User's SSH Key:
+    1. Log into server as existing account
+    2. Copy the public key (ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDR0...)
+    3. Make .ssh and authorizedKeys dir: (.ssh && /.ssh/authorized_keys)
+    4. Edit authorized_keys; add in the key.
+    
+XFER Files:
+   sudo apt install filezilla
+   File -> Site Manager -> [SFTP, Host, Key File, .ssh/<name>.ppk or just name (private key) 
+ 
+SCHEDULE Jobs:
+   1. crontab -e : opens Linux native job scheduler
+   2. a. A typical entry: minute hour day(month) month day(week) <cmd>
+      b. */1 * * * * /home/pav/anaconda3/bin/python /home/pav/Desktop/testfile.py (every min)
+      b. 32 17 * * * /home/pav/anaconda3/bin/python /home/pav/Desktop/pav-code/finance_api/B_update_intrinsics.py 1 >> /home/pav/Desktop/cron.log 2>&1 : file with arguments
+      c. gruntab.guru for an easy scheduler
+   
+   Cron Log:
+    1. /etc/rsyslog.d/50-default.conf
+    2. uncomment cron.*
+    3. sudo service rsyslog restart
+    4. /var/log/cron.log
+    OR:
+    1. Redirect yourself: 01 14 * * * /home/joe/myscript >> /home/log/myscript.log 2>&1
+
+   SYSTEM Crontab configuration file:
+      /etc/crontab
+      
+====== ECLIPSE: =======
+   1. Install xamp: https://www.apachefriends.org/download.html
+   2. Install Eclipse: PHP, webpage
+   3. Directory of webserver: /opt/lampp/htdocs
+   4. Edit, change Owner and Group: /opt/lampp/etc/httpd.conf
+   
+
+====== INSTALLS: ======
+OPENSSH:
+   openssh-server
+   
+FILEZILLA: 
+   sudo apt install filezilla : gui FPT file xfer (install on host)
+   
+APACHE:
+   sudo apt install apache
+   /etc/apache2 : location
+   sudo systemctl apache2 status : status
+   sudo /etc/init.d/apache2 status : status
+   localhost, 127.0.0.1 : local host IP address 
+   /var/www/html/index.html
+   
+======= GIT: ========
+GENERATE SSH Key:
+  cd ~/.ssh/
+  ssh-keygen -t rsa -b 4096 -C "email@example.com"
+  
+  For server:
+   eval $(ssh-agent) : does someshit prevents a "Could not open connection to authentitcation agent"
+   ssh-add 
+   ssh-add <private key>
+   
+  ssh -T git@github.com : test out the service. Should read: "Hi pav-code! You've successfully
+       authenticated, but GitHub does not provide shell access."

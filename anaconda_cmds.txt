@@ -1,0 +1,34 @@
+=========================== INFORMATION ========================
+Information:  https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
+
+
+============================= PIP ==============================
+pip list
+
+============================ COMMANDS ==========================
+Creating an environment:
+  conda create --name myenv
+  conda create --name <name> python=2.7
+
+Conda environments:
+  conda env list
+  conda info --envs
+  activate <environment>
+  deactivate <environment>
+  conda env remove -n ENV_NAME
+  conda create -n <name> pip python=3.6 : Specific version of python
+ 
+Install pkg only in Env:
+  download whl file (wheels)
+  pip install <pkg.whl> 
+  
+Update Conda:
+  conda update
+  anaconda update
+  
+Rm:
+  conda update <pkg>
+  conda remove --name <environment> <pkg>
+
+Terminal name:
+  conda config --set env_prompt '({name})'

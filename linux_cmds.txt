@@ -176,6 +176,25 @@ DIRECTORY string
 SWITCH user
    su <user> : switch to specified user (sudo su root/ sudo su - goes into root)
    
+========================== SERVER COMMANDS =============================
+RUN Script remotely
+   tmux : Run your script 
+   Ctrl + b, d : Detaches from the process and you can safely log off the remote machine
+   Ctrl + b, s : Switch to side-by-side session
+   tmux list-sessions: list sessions
+   tmux attach : Gets back into your session
+   
+INSTALL Specific Python
+   1. for pip: apt install libssl-dev libncurses5-dev libsqlite3-dev libreadline-dev libtk8.5 libgdm-dev libdb4o-cil-dev libpcap-dev
+   1a. bz2 missing: sudo apt-get install libbz2-dev
+   1b. lzma module: sudo apt-get install liblzma-dev
+   2. wget https://python.org/ftp/python/3.7.6/Python-3.7.6.tgz
+   3. tar xvzf *.tgz
+   4. cd .
+   5. ./configure --prefix=$HOME/.local
+   6. make
+   7. make install
+   8. in .bash_rc: add: PATH=$HOME/.local/bin:$PATH (if its not already there)
 
 ======================= MANAGE SYSTEM SERVICES =========================
 CHECK status
@@ -218,6 +237,9 @@ LIST Groups
 
 CONFIG for all groups in PC
    /etc/group
+   
+LIST All Users:
+   less /etc/passwd
  
 ADD a group
    sudo groupadd <group_name>
@@ -228,6 +250,9 @@ REMOVE a group
 WHO is logged into the system
    who
    w
+
+ADD User to a Group:
+   usermod -aG <group> <user> : ex: usermod -aG sudo pav
 
 ======================= INTERNET =====================
 LOCAL IP ip
@@ -282,6 +307,17 @@ DEFINITIONS
 
 LOCATION
    /home/$HOME/.bashrc
+
+==================== BASHRC MODS ======================
+AUTOCOMPLETE History:
+   if [[ $- == *i* ]]
+   then
+      bind '"\e[5~": history-search-backward'
+      bind '"\e[6~": history-search-forward'
+   fi
+
+HOTKEY Check:
+   cat : then type any key. UP ARROW -> ^[[A ( ^[ = \e )
 
 ======================= SCRIPTS ======================
 SHEBANG (sha-bang) directs the shell to the right interpreter of the binary
@@ -348,4 +384,11 @@ SPEED TEST: A terminal speed test script
    
 HISTORY of commands
    history
+   
+PDF Merger:
+   apt-get install pdfshuffler : "PDF Arranger", used to combine PFDs
+   
+TODO:
++ sudo lshw -C video
++ lspci | grep VGA
 

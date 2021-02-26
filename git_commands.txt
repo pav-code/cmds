@@ -7,3 +7,6 @@ git reset --soft HEAD : unstage commits to repo vesion
 git fetch origin : grab changes that happened on the remote server
 git rebase origin/master : put the code below your new changes
 
+SET Branch To Point to Remote Branch
+   git branch --set-upstream-to=origin/dev dev
+
