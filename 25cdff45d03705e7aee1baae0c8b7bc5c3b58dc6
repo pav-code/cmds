@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10713e9f_4806e7f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019179
+      },
+      "writtenOn": "2021-05-20T22:24:12Z",
+      "side": 1,
+      "message": "greatt",
+      "revId": "25cdff45d03705e7aee1baae0c8b7bc5c3b58dc6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b54d5833_67b15bf6",
+        "filename": "linux_cmds.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1019179
+      },
+      "writtenOn": "2021-05-20T22:24:12Z",
+      "side": 1,
+      "message": "test comment",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 4
+      },
+      "revId": "25cdff45d03705e7aee1baae0c8b7bc5c3b58dc6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
