@@ -1,4 +1,5 @@
 ======================= FINDING FILES ==================================
+
 FIND
    # In folder_path find the file called search_string
    find <folder_path> -name "search_string"
