@@ -9,4 +9,7 @@ git rebase origin/master : put the code below your new changes
 
 SET Branch To Point to Remote Branch
    git branch --set-upstream-to=origin/dev dev
-
+PUSH Side branch to Main:
+   git push <remote> <local branch name>:<remote branch to push into>
+   git push origin dev-pav:master
+   

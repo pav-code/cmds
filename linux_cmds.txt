@@ -38,11 +38,14 @@ FIND
          # "NR_SYSCALLS" and print all the files   
          find . -regextype sed -regex ".*unistd.h" -exec sh -c 'grep NR_SYSCALLS "{}"; echo "{}"' \;
          find . -regextype sed -regex ".*unistd.h" -exec sh -c 'if [grep NR_SYSCALLS "{}"] then echo "{}"; fi' \;
+         find . -name \*.cpp -exec grep -q "debug" '{}' \; -print
 
 GREP
-   # look for <string> in <file>
-   grep -r <string> <file>
-   eg. grep -r "error" /var/log/syslog - searches for "error" in "syslog"
+   LOOK for <string> in <file>
+      grep -r <string> <file>
+      eg. grep -r "error" /var/log/syslog - searches for "error" in "syslog"
+   SEARCH files and print line number
+      grep -r -n "localhost" .
    
 MAN
    man <cmd> : information on most commands (man grep) 
@@ -50,7 +53,27 @@ MAN
 HELP 
    help <cmd> : information on most commands (help cd - note man cd is empty!)
 
+AWK
+   Look for the third arguments in a file, and count the occurances
+      awk '{count[$3]++} END {for (word in count) print word, count[word]}' file
+      awk '{print $3}' file | sort | uniq -c
+
+SED
+   SUBSTITUTIONS of words in a string
+      echo "Bash Scripting Language" | sed 's/Bash/Perl/'
+   ON a specific line
+      sed '2 s/Python/perl/g' python.txt : the second line
+      sed 's/Python/perl/g2' python.txt : the second occurance on each line
+   SEARCH for a string in a file or STDOUT:
+      sed -n '/root/p' /etc/passwd
+      <string output> | sed -n '/search_str/p'  
+      
+   src: https://linuxhint.com/50_sed_command_examples/#s1
+   
 ======================= MANAGE FILESYSTEM ==============================
+FILE MANAGER - size explorer, manager, navigator and deletor of files and directories
+   sudo ncdu -x <location> : -x ignores network drives. BEST SPACE FEERER.
+
 Human readable (MBs, GBs, ...) file list
    ls -lh
    
@@ -70,9 +93,6 @@ UUID of a drive
 
 DIRECTORY TOTALS list of directory sizes
    du -hsc <location>
-   
-FILE MANAGER - size explorer, manager, navigator and deletor of files and directories
-   sudo ncdu -x <location> : -x ignores network drives. BEST SPACE FEERER.
    
 DETAILED info on all storage disks
    sudo fdisk -l 
@@ -107,6 +127,9 @@ AUTO-MOUNT filesystem table holding all the entries of the automounted drives
 
 CHECK fstab
    sudo mount -a
+   
+SHOW Tree:
+   tree
 
 ======================= PACKAGE MANAGER and PKGS =======================
 INSTALL .deb package
@@ -267,9 +290,22 @@ SSH copy
   
 SSH Remote connection
    ssh <user>@ip : server@192.168.0.155
+   ssh kubeuser@badbunch.net -v : verbose
+   
+FORCE No SSH:
+   ssh -o PubkeyAuthentication=no kubeuser@badbunch.net
    
 DOWNLOAD file
    wget <http://...> : downloads a file from the web
+   
+GENERATE Key
+   ssh-keygen 
+   eval $(ssh-agent)
+   ssh-add ~/.ssh/<private_key_file> 
+
+SETUP No-pass Login:
+   1. ssh-keygen -t rsa -b 4096 -C “your_email@domain.com”
+   2. cat .ssh/id_rsa.pub | ssh [remote_username]@[server_ip_address] 'cat >> .ssh/authorized_keys'
    
 ======================= LINUX FILESYSTEM =============
 /boot : images of bootable instances
@@ -297,6 +333,9 @@ JORNAL ctl:
    journalctl -fu apache2 - follow unit <apache2> constantly
    journalctl --vacuum-size=100M : set size to 100M (vs the 4GB)
    journalctl --vacuum-time=10d : set the journal to 10 days ago only
+   
+PRINT to file and terminal:
+   command | tee file.txt
 
 ======================= ALIASES ======================
 CREATE alias
@@ -391,4 +430,17 @@ PDF Merger:
 TODO:
 + sudo lshw -C video
 + lspci | grep VGA
+
+FIREFOX:
+   (1)  about:config
+   (2) tabm
+   (3) browser.tabs.tabMinWidth
+   
+LINUX Sizes:
+   Side bar size: Dock in Settings
+   Top Bar sie: Tweaks -> Fonts -> Text scaling
+   Icons -> tweaks -> extensions -> Desktop icons
+         or) sudo gedit /usr/share/gnome-shell/extensions/desktop-icons@csoriano/prefs.js
+         const ICON_SIZE = { ... }
+   
 
