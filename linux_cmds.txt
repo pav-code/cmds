@@ -199,6 +199,9 @@ DIRECTORY string
 SWITCH user
    su <user> : switch to specified user (sudo su root/ sudo su - goes into root)
    
+UNZIP 
+  tar –xvzf file.tar.gz  
+   
 ========================== SERVER COMMANDS =============================
 RUN Script remotely
    tmux : Run your script 
@@ -443,4 +446,6 @@ LINUX Sizes:
          or) sudo gedit /usr/share/gnome-shell/extensions/desktop-icons@csoriano/prefs.js
          const ICON_SIZE = { ... }
    
+PDF Split:
+  pdftk complete.pdf cat 12-15 output pages12to15.pdf
 
