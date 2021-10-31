@@ -1,0 +1,6 @@
+
+SELECT one col -> from a table -> where a certain column has a specific value
+  Find the titles of all movies directed by Steven Spielberg. 
+    SELECT title FROM Movie WHERE Director = 'Steven Spielberg';
+    
+
