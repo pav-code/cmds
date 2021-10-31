@@ -1,6 +1,19 @@
 
-SELECT one col -> from a table -> where a certain column has a specific value
+SELECT col from a table according to a specific column
+  one col -> from a table -> where a certain column has a specific value
   Find the titles of all movies directed by Steven Spielberg. 
     SELECT title FROM Movie WHERE Director = 'Steven Spielberg';
     
+SELECT from subquery:
+  one col -> one table -> col = -> another query. Order by col (first table) ascending
+
+  SELECT yearCol FROM 1stTable 
+  WHERE idCol IN
+  SELECT idCol FROM 2ndTable 
+  WHERE col = # or col = #
+  ORDER BY yearCol ASC;
+  
+  ex: select year from Movie where mid 
+  in(select mid from Rating where stars = 4 or stars = 5) order by year asc;
+  
 
