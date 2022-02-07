@@ -1,10 +1,15 @@
+START PostGRE sql:
+  sudo su postgres
+  psql
 
 SELECT col from a table according to a specific column
+
   one col -> from a table -> where a certain column has a specific value
   Find the titles of all movies directed by Steven Spielberg. 
     SELECT title FROM Movie WHERE Director = 'Steven Spielberg';
     
 SELECT from subquery:
+
   one col -> one table -> col = -> another query. Order by col (first table) ascending
 
   SELECT yearCol FROM 1stTable 
@@ -15,5 +20,149 @@ SELECT from subquery:
   
   ex: select year from Movie where mid 
   in(select mid from Rating where stars = 4 or stars = 5) order by year asc;
+
+Q5    
+  with finalTable as
+  (
+    with reviewerPair as 
+    (
+      select distinct R1.rid as Reviewer1, r2.rid as Reviewer2
+      from rating r1, rating r2
+      where r1.mid = r2.mid and r1.rid < r2.rid
+    )
+    select R1.name as name1, R2.name as name2
+    from reviewerPair join reviewer R1
+    on Reviewer1 = R1.rid
+    join reviewer R2
+    on Reviewer2 = R2.rid
+  )
+  select name1, name2 from finalTable where name1 < name2
+  union
+  select name2, name1 from finalTable where name1 >= name2
+  
+  select case when name1 > name2 then name2 else name1 end as name1,
+       case when name1 <= name2 then name2 else name1 end as name2
+  from finalTable
+  order by name1
+Q7
+  select title, AVG(stars) as avgStars 
+  from rating inner join movie
+  on rating.mid = movie.mid 
+  group by title
+  order by avgStars, title
+  
+Q8
+  select name
+  from Rating join Reviewer R
+  on Rating.rId = R.rId
+  group by R.rId, name
+  having count( R.rId ) >= 3
+  
+  OR:
+  with multipleReviews as
+  (
+    select rId
+    from Rating
+    group by rId
+    having count( rId ) >= 3
+  )
+  select name
+  from Reviewer
+  where rId in ( select * from multipleReviews )
+  
+Q9
+  with directors as
+  (
+    select director
+    from Movie
+    group by director
+    having count(mid) > 1
+  )
+  select title, Movie.director
+  from directors join Movie
+  on directors.director = Movie.director
+  order by Movie.director, title
+  
+Q10 / Q11
+  # SQLite
+  with avgRatings as 
+  (
+    select AVG( stars ) as avgRate, mID
+    from Rating
+    group by mID
+  )
+  select *
+  from avgRatings
+  where avgRate = 
+  (
+    select min(avgRate)
+    from avgRatings
+  )
+  
+  
+  
+  # POSTGRE
+  where avgRate <= all ( select avgRate from avgRatings )  
+  
+  
+  
+Q12
+  
+  with directorTable as 
+  (
+    select director, Rating.mID as movieId, AVG( stars ) as starAvg
+    from Movie join Rating
+    on Movie.mId = Rating.mId
+    group by Rating.mId, director
+    order by director, starAvg desc
+  )
+  select distinct (director), starAvg
+  from directorTable
+  order by director;
+  
+;WITH s AS 
+(
+  SELECT StoreID, UPCCode, tds, rn = ROW_NUMBER()
+  OVER (PARTITION BY StoreID ORDER BY tds DESC)
+  FROM 
+  (
+    SELECT StoreID, UPCCode, tds = SUM(TotalDollarSales)
+    FROM Sales
+    GROUP BY StoreID, UPCCode
+  ) AS s2
+)
+SELECT StoreID, UPCCode, TotalDollarSales = tds
+FROM s
+WHERE rn <= 5
+ORDER BY StoreID, TotalDollarSales DESC;
   
 
+=============== FRIENDS DATABASE ====================
+Q1
+  with trio as
+  (
+    select A.id1 as A, B.id1 as B, B.id2 as C
+    from Likes A, Likes B
+    where A.id2 = B.id1 and B.id2 <> A.id1
+  )
+  select H1.name, H1.grade, H2.name, H2.grade, H3.name, H3.grade
+  from trio join Highschooler H1
+  on H1.id = trio.A
+  join Highschooler H2
+  on H2.id = trio.B
+  join Highschooler H3
+  on H3.id = trio.C
+  
+Q2
+  /* Inner Query: Return all grades of all friends of Person (outer query) */
+  /* Outer Query: Join Highschooler to get grade of Person, and compare Person's grade vs all his friend's grades */
+  select distinct name, grade
+  from Friend join Highschooler Person
+  on Friend.id1 = Person.id
+  where Person.grade not in 
+  (
+    select grade
+    from Friend join Highschooler Pal
+    on Friend.Id1 = Pal.Id
+    where Friend.id2 = Person.id
+  )
