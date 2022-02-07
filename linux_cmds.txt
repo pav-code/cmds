@@ -44,8 +44,12 @@ GREP
    LOOK for <string> in <file>
       grep -r <string> <file>
       eg. grep -r "error" /var/log/syslog - searches for "error" in "syslog"
+   
    SEARCH files and print line number
       grep -r -n "localhost" .
+   
+   COUNT number of word occurrances in a file
+      grep -o 'string to find' <file> | wc -l
    
 MAN
    man <cmd> : information on most commands (man grep) 
@@ -66,7 +70,9 @@ SED
       sed 's/Python/perl/g2' python.txt : the second occurance on each line
    SEARCH for a string in a file or STDOUT:
       sed -n '/root/p' /etc/passwd
-      <string output> | sed -n '/search_str/p'  
+      <string output> | sed -n '/search_str/p'
+   FIND & REPLACE:
+      sed -i 's/{OLD_TERM}/{NEW_TERM}/' {file}
       
    src: https://linuxhint.com/50_sed_command_examples/#s1
    
@@ -127,9 +133,14 @@ AUTO-MOUNT filesystem table holding all the entries of the automounted drives
 
 CHECK fstab
    sudo mount -a
-   
+
 SHOW Tree:
    tree
+
+SHOW Video card information
+   sudo lshw -C video  // detailed version here
+
+   lspci | grep VGA // short version here
 
 ======================= PACKAGE MANAGER and PKGS =======================
 INSTALL .deb package
@@ -165,6 +176,10 @@ REPO local lists
 ADD repo:
    see webpage specific webpage for link and format
    
+KEYS:
+   sudo apt-key add <key> : manages the list of keys used by apt to authenticate packages
+   
+   
 ======================= FILES and PERMISSIONS ======================
 FILE format
    d/- r w x  r w x  r w x
@@ -198,10 +213,23 @@ DIRECTORY string
       
 SWITCH user
    su <user> : switch to specified user (sudo su root/ sudo su - goes into root)
-   
+
+============================= LIBRARIES ===============================
+LINKER in Linux:
+  /usr/bin/ld - path to the GNU linker
 UNZIP 
   tar –xvzf file.tar.gz  
    
+  
+LINKER Path to dynamic libraries at runtime
+  LD_LIBRARY_PATH - environment variable
+  
+PRINT Linker paths (only for COMPILATION/linking)
+  ld --verbose | grep SEARCH_DIR | tr -s ' ;' \\012
+  
+PRINT Dynamic Linker paths (during running of an executable)
+  ldconfig -v 2>/dev/null | grep -v ^$'\t'
+
 ========================== SERVER COMMANDS =============================
 RUN Script remotely
    tmux : Run your script 
@@ -209,6 +237,8 @@ RUN Script remotely
    Ctrl + b, s : Switch to side-by-side session
    tmux list-sessions: list sessions
    tmux attach : Gets back into your session
+   tmux kill-session -t <name> : kill the session with the corresponding name
+   tmux kill-session -a : kill all other sessions
    
 INSTALL Specific Python
    1. for pip: apt install libssl-dev libncurses5-dev libsqlite3-dev libreadline-dev libtk8.5 libgdm-dev libdb4o-cil-dev libpcap-dev
@@ -291,24 +321,47 @@ SSH copy
    scp pav@192.168.0.108:/media/drive2/Users/pg-elevated/Documents/McMaster/* .
    scp server@192.168.0.155:/home/server/linux_cmds.txt /home/kliment/Desktop
   
+
+   
+DOWNLOAD file
+   wget <http://...> : downloads a file from the web
+
+=========================== SSH ========================
 SSH Remote connection
    ssh <user>@ip : server@192.168.0.155
    ssh kubeuser@badbunch.net -v : verbose
    
 FORCE No SSH:
    ssh -o PubkeyAuthentication=no kubeuser@badbunch.net
-   
-DOWNLOAD file
-   wget <http://...> : downloads a file from the web
-   
+ 
 GENERATE Key
    ssh-keygen 
    eval $(ssh-agent)
    ssh-add ~/.ssh/<private_key_file> 
 
+ADD SSH Key To Agent:
+   ssh-add <key>
+
 SETUP No-pass Login:
    1. ssh-keygen -t rsa -b 4096 -C “your_email@domain.com”
    2. cat .ssh/id_rsa.pub | ssh [remote_username]@[server_ip_address] 'cat >> .ssh/authorized_keys'
+   
+REMOVE SSH Key:
+  ssh-keygen -R <ip address>
+  
+SSH Too Many Authentication Failures:
+  ssh -o IdentitiesOnly=yes <kubeuser@badbunch.net>
+  
+SSH Remove Config
+  ~./.ssh/config
+  
+SSH List Identities
+  ssh-add -l
+  
+START SSH Agent:
+   eval "$(ssh-agent -s)"
+   
+
    
 ======================= LINUX FILESYSTEM =============
 /boot : images of bootable instances
@@ -428,11 +481,7 @@ HISTORY of commands
    history
    
 PDF Merger:
-   apt-get install pdfshuffler : "PDF Arranger", used to combine PFDs
-   
-TODO:
-+ sudo lshw -C video
-+ lspci | grep VGA
+   apt-get install pdfshuffler : "PDF Arranger", desktop application, used to combine PFDs
 
 FIREFOX:
    (1)  about:config
@@ -445,6 +494,8 @@ LINUX Sizes:
    Icons -> tweaks -> extensions -> Desktop icons
          or) sudo gedit /usr/share/gnome-shell/extensions/desktop-icons@csoriano/prefs.js
          const ICON_SIZE = { ... }
+         
+https://review.gerrithub.io/dashboard/self
    
 PDF Split:
   pdftk complete.pdf cat 12-15 output pages12to15.pdf

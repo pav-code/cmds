@@ -1,0 +1,117 @@
+
+HTML Embedding:
+   <script>
+      console.log("hi");
+   </script>
+
+TYPES: Dynamically typed
+   undefined
+   null - C like (object pointer) 
+   number
+   boolean
+   object 
+   string
+   typeof A - gets the type (C like) [tring, number, boolean, undefined, object]
+
+VARIABLES: let is C-like. Var is allowed in next scope! Also it's okay to be declared twice (no good)
+   var A;   - scoped with above nesting
+   const B; - constant
+   let C;   - changable
+
+OBJECT:
+   var objName = { 
+      name: 'who',
+      age: 30
+   }; // maybe like C's structure
+   
+   objName.name = 'new who'
+   objName['name'] = 'third who'
+   
+   let selection = 'name';
+   objName[selection] = 'fourth who'
+
+ARRAY:
+   let arr = [1,2,3]; // More lcassical array
+   let arr = ['hi',1,2]; // Array is an object in JS
+   
+   var arr = []; 
+   arr.push(1);
+
+   Object.freeze( Object/array ) // const array/object
+
+FUNCTION:
+   function myfoo(arg1, arg2){ return 0 || 2 } // or in return
+   const convertExchange = (exchange) => { } // convert 
+   var magic = function() { return 0 } // Anonymous function
+   var anon = function(a,b) { return a + b };
+   var magic = () => { return 0 }
+   var magic = () => 0;
+   var adding = (a,b) => a+b; // ES6 Function name is adding
+   (function () {console.log(arguments)})(1, 2); // will output [1, 2]
+
+ARRAY De
+
+// Loops
+for( var i = 0; i<10; i++) {  }
+
+// MATH
+Math.random(), Math.floor(), ...
+
+// Casting
+parseInt('3', base)
+
+// Turnary
+if (a==b) ? true : false;
+
+// Script mode
+"use script"
+
+// Try catch
+try { } catch ( ) { }
+
+// HOOKs
+   // let you perform side-effects (change of dom, data fetch, etc, without writing a class)
+   Used in functions
+
+// Destructuring
+   // only take a few fields of an object
+   const [fruit, setFruit] = useState('banana');
+  
+   Equivalent to :  
+   var fruitStateVariable = useState('banana'); // Returns a pair
+   var fruit = fruitStateVariable[0]; // First item in a pair
+   var setFruit = fruitStateVariable[1]; // Second item in a pair
+    
+
+// TODO:
+JSON.stringify()
+
+// Moment
+        const now = moment();
+        const weekStart = now.startOf('year') // Remove: when having constant ticker prices
+        const timeToString = weekStart.format('YYYY.MM.DD');
+        let date = timeToString.replace(/\./g,'-')
+        
+Resources:
+   https://developer.mozilla.org/en-US/docs/Glossary/loop
+   
+   
+MISC:
+            let years_tab = [];
+            $('#keystuts').find('thead').each((idx, years)=>
+            {
+                $(years).find('th').each((year_idx, year)=>
+                {
+                    if( $(year).text().length > 0 ) { years_tab.push( $(year).text() ); }
+                })
+                return false;
+            })
+
+ERRORS:
+   MISSING dependencies: npm install
+      /home/pav/Desktop/pav-code/stock-app/node_modules/react-scripts/scripts/start.js:19
+        throw err;
+        ^
+
+      Error: ENOENT: no such file or directory, stat '/home/pav/.steampath'
+

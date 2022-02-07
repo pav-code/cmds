@@ -1,0 +1,31 @@
+
+D3 Charting:
+   https://recharts.org/en-US/examples
+   https://devblog.classy.org/how-to-make-beautiful-graphs-with-vx-and-react-motion-6ffe7aecf6f3
+   https://github.com/airbnb/visx/
+   https://www.youtube.com/watch?v=oeE2tuspdHg
+   https://bit.dev/recharts/recharts/responsive-container : the <div style={{ width:300 ... <\div>
+   
+Pop ups:
+   https://mui.com/components/modal/
+   
+Local Debug:
+   app.js : !!keycloak.authenticated -> !keycloak.authenticated
+   index.js : onLoad: 'login-required' -> commented
+   axios.get('http://localhost:8080/api/intrinsics').then((res)=>{ // Under useEffect( () => { 
+   
+   npm install : install dependencies
+   npm start : starts the server
+   
+   
+Add new page:
+   commit: eac26412d30f4e6905662f621aafeeca8291ddd2
+   App.js : 
+      + import <name> from 'Page/File.js'
+      + Tab style ...
+      + <Route path='<name>'
+   Intrinsics.js :
+      + new file (tableSettings, columns, useEffect 1: setUpdatedTime 2: 
+      
+ADD new package:
+   npm install 

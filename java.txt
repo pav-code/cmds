@@ -1,0 +1,33 @@
+
+======================== THREADS ================================
+
+OBJECT Get current thread object:
+   Thread.currentThread()
+   
+NAME:
+   Thread.currentThread().getName()
+   Thread.currentThread().setName("main2")
+   
+NUMBER Of active threads:
+   Thread.activeCount()
+   
+PRIORITY:
+   Thread.currentThread().getPriority()
+   Thread.currentThread().setPriority(5); // 1-10 (10 is Highest)
+   
+ALIVE:
+   Thread.currentThread().isAlive()
+   
+SLEEP:
+   Thread.sleep( ms ) // 1000 ms = 1 s
+   MUST: 1) be in a try/catch block OR
+         2) method throws InterruptedException
+
+CREATE (extends):
+   1) New class "MyThread"
+   2) MyThread extends Thread
+   3) @Override
+      public void run() { ... }
+   4) MyThread thread2 = new MyThread() // The new thread is created from the Class template
+   
+   

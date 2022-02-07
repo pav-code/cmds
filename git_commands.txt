@@ -1,15 +1,48 @@
-git status : check status of repo
-git log : check log of recent commits
-git restore --staged <file> : set file into staging
-git checkout HEAD -- <file> : revert file to repo version
-git reset --hard HEAD : reset all files to repo vesion (use with CAUTION)
-git reset --soft HEAD : unstage commits to repo vesion
-git fetch origin : grab changes that happened on the remote server
-git rebase origin/master : put the code below your new changes
+============================== INFO =================================
 
-SET Branch To Point to Remote Branch
-   git branch --set-upstream-to=origin/dev dev
+SEE Status Of Repo:
+   git status
+
+SEE Previous Commits:   
+   git log
+   git log -5 : the last 5 commits
+   
+VISUAL Commits/Dates/Users/Code Changes GUI:
+   gitk &
+   
+CHANGELOG of One File:
+   gitk -- <file>
+
+UPDATE info of Remote -> Local
+   git fetch origin : grab changes that happened on the remote server
+
+============================= COMMITS ===============================
+RESTORE From Staging to Uncommited
+   git restore --staged <file>
+
+CHECKOUT A Certain File to the HEAD Version:
+   git checkout HEAD -- <file>
+
+DISASSEMBLE Commit:
+   git reset --hard HEAD : reset all files to repo vesion (use with CAUTION Erases all your changes)
+   git reset --soft HEAD : unstage commits to repo vesion
+
+REBASE Your Code onto Another Branches:
+   git rebase origin/master : put the origin/master code below your new changes
+
+
 PUSH Side branch to Main:
    git push <remote> <local branch name>:<remote branch to push into>
    git push origin dev-pav:master
    
+
+=========================== REPO MANAGEMENT =========================
+SET Branch To Point to Remote Branch
+   git branch --set-upstream-to=origin/dev dev
+
+LIST Branches:
+   git branch -r : Remote branches
+   git branch -a : Remote And Local branches
+   git branch    : Local branches
+   
+
