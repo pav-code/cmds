@@ -23,7 +23,7 @@ SELECT from subquery:
   ex: select year from Movie where mid 
   in(select mid from Rating where stars = 4 or stars = 5) order by year asc;
 
-Q5    
+Q5
   with finalTable as
   (
     with reviewerPair as 
@@ -122,7 +122,7 @@ Q12
   from directorTable
   order by director;
   
-;WITH s AS 
+WITH s AS 
 (
   SELECT StoreID, UPCCode, tds, rn = ROW_NUMBER()
   OVER (PARTITION BY StoreID ORDER BY tds DESC)
@@ -137,9 +137,6 @@ SELECT StoreID, UPCCode, TotalDollarSales = tds
 FROM s
 WHERE rn <= 5
 ORDER BY StoreID, TotalDollarSales DESC;
-  
-ORDER BY StoreID, TotalDollarSales DESC;
-  
 
 =============== FRIENDS DATABASE ====================
 Q1
