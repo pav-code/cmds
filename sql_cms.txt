@@ -1,3 +1,5 @@
+=============== STANFORD DB CLASSES ====================
+
 START PostGRE sql:
   sudo su postgres
   psql
@@ -134,6 +136,8 @@ Q12
 SELECT StoreID, UPCCode, TotalDollarSales = tds
 FROM s
 WHERE rn <= 5
+ORDER BY StoreID, TotalDollarSales DESC;
+  
 ORDER BY StoreID, TotalDollarSales DESC;
   
 
