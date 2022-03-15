@@ -4,3 +4,7 @@ Repo with a collection of useful commands:
  2) Python (numpy, deep learning, ...)
  3) Anaconda
  4) Server Management
+ 
+ Add first new line
+ 
+ Add second new line
