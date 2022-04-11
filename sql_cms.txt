@@ -16,4 +16,10 @@ SELECT from subquery:
   ex: select year from Movie where mid 
   in(select mid from Rating where stars = 4 or stars = 5) order by year asc;
   
+=========== CONFIGS ============
+PERMISSION Error on system installation of PostGRE:
+  /var/lib/pgsql/data/pg_hba.conf
+    CHANGE:    local   all             postgres                                peer 
+    TO:        local   all             postgres                                md5
+    
 
