@@ -488,13 +488,18 @@ FIREFOX:
    (2) tabm
    (3) browser.tabs.tabMinWidth
    
-LINUX Sizes:
+LINUX Sizes, Icons:
    Side bar size: Dock in Settings
    Top Bar sie: Tweaks -> Fonts -> Text scaling
    Icons -> tweaks -> extensions -> Desktop icons
          or) sudo gedit /usr/share/gnome-shell/extensions/desktop-icons@csoriano/prefs.js
          const ICON_SIZE = { ... }
          
+QR Reader:
+  Decodes the QR image into text
+    sudo apt install zbar-tools
+    zbarim "name of the image file.jpg"
+
 https://review.gerrithub.io/dashboard/self
    
 PDF Split:
